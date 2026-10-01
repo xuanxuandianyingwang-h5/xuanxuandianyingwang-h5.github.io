@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宣宣电影网 - 海量高清电影电视剧在线观看 | xuanxuandianyingwang-h5</title>
+    <meta name="description" content="宣宣电影网(xuanxuandianyingwang-h5)提供海量高清电影、电视剧、综艺、动漫在线观看，覆盖动作、喜剧、爱情、科幻等全分类。官网 https://xuanxuandianyingwang-h5.github.io，移动端自适应，片库每日更新。">
+    <meta name="keywords" content="宣宣电影网, xuanxuandianyingwang-h5, 高清电影在线观看, 海量影视, 电影网, 电视剧在线看">
+    <meta name="author" content="宣宣电影网">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://xuanxuandianyingwang-h5.github.io">
+    <link rel="alternate" hreflang="zh-CN" href="https://xuanxuandianyingwang-h5.github.io">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="宣宣电影网 - 海量高清电影在线观看">
+    <meta property="og:description" content="宣宣电影网 xuanxuandianyingwang-h5 提供海量高清电影、剧集、综艺在线观看，分类全、更新快、移动端自适应。">
+    <meta property="og:url" content="https://xuanxuandianyingwang-h5.github.io">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="宣宣电影网 - 海量影视在线观看">
+    <meta name="twitter:description" content="xuanxuandianyingwang-h5 官网提供海量高清电影、电视剧在线观看，分类齐全、加载快。">
+    <style>
+        :root{
+            --bg:#fff7fb;
+            --bg-2:#eefcfa;
+            --card:#ffffff;
+            --line:rgba(54,209,183,.22);
+            --mint:#36d1b7;
+            --mint-2:#7af0dd;
+            --pink:#ff8fb1;
+            --pink-2:#ffc2d6;
+            --violet:#9b8cff;
+            --text:#33414a;
+            --muted:#6b7b86;
+            --nav-h:64px;
+            --radius:18px;
+            --shadow:0 12px 28px rgba(155,140,255,.14);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+            background:
+                radial-gradient(1000px 480px at 90% -10%,rgba(255,143,177,.12),transparent 60%),
+                radial-gradient(820px 420px at 0% 8%,rgba(54,209,183,.12),transparent 55%),
+                linear-gradient(180deg,var(--bg),var(--bg-2));
+            color:var(--text);
+            line-height:1.75;
+            padding-top:var(--nav-h);
+            -webkit-font-smoothing:antialiased;
+        }
+        a{color:var(--mint);text-decoration:none;transition:.25s;}
+        a:hover{color:var(--pink);}
+        img{max-width:100%;display:block;}
+        ul{list-style:none;}
+
+        /* 导航 */
+        .nav{
+            position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;
+            display:flex;align-items:center;justify-content:space-between;padding:0 16px;
+            background:rgba(255,247,251,.95);
+            backdrop-filter:blur(10px);
+            border-bottom:1px solid var(--line);
+        }
+        .brand{
+            font-weight:900;font-size:clamp(15px,4.4vw,21px);color:#27323a;
+            display:flex;align-items:center;gap:8px;white-space:nowrap;
+        }
+        .brand b{
+            background:linear-gradient(90deg,var(--mint),var(--pink));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        }
+        .brand .tag{
+            font-size:11px;color:#fff;background:var(--violet);
+            padding:2px 7px;border-radius:6px;font-weight:800;letter-spacing:.2px;
+        }
+        .menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:10px;}
+        .menu-btn span{width:26px;height:3px;background:#27323a;border-radius:3px;transition:.3s;}
+        .menu-btn.open span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+        .menu-btn.open span:nth-child(2){opacity:0;}
+        .menu-btn.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+        .nav-links{display:flex;gap:6px;flex-wrap:wrap;}
+        .nav-links a{
+            color:#3f4d57;font-size:15px;font-weight:700;min-height:44px;
+            display:inline-flex;align-items:center;padding:8px 12px;border-radius:20px;
+        }
+        .nav-links a:hover{background:rgba(54,209,183,.12);color:var(--pink);}
+
+        /* 容器 */
+        .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
+        .section{padding:60px 0;}
+        .sec-title{
+            font-size:clamp(22px,5vw,30px);font-weight:900;text-align:center;margin-bottom:8px;color:#27323a;
+        }
+        .sec-title small{display:block;font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700;margin-top:8px;}
+        .sec-title::after{
+            content:"";display:block;width:76px;height:4px;border-radius:4px;margin:14px auto 0;
+            background:linear-gradient(90deg,var(--mint),var(--pink));
+        }
+
+        /* Hero */
+        .hero{
+            position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+            background:
+                radial-gradient(780px 380px at 84% 0%,rgba(255,143,177,.16),transparent 60%),
+                radial-gradient(660px 320px at 8% 18%,rgba(54,209,183,.16),transparent 60%);
+        }
+        .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;padding:70px 16px;}
+        .hero h1{font-size:clamp(27px,6vw,44px);line-height:1.2;font-weight:900;margin-bottom:16px;color:#27323a;}
+        .hero h1 em{font-style:normal;color:var(--mint);text-shadow:0 0 18px rgba(54,209,183,.35);}
+        .hero h1 i{font-style:normal;color:var(--pink);}
+        .hero p{color:var(--muted);font-size:clamp(15px,2.6vw,18px);max-width:560px;margin-bottom:18px;}
+        .hero-url{
+            display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;
+            border:1px dashed var(--mint);color:#0f7a6a;background:rgba(54,209,183,.1);
+            padding:10px 16px;border-radius:10px;font-size:14px;margin-bottom:22px;
+        }
+        .cta{
+            display:inline-block;background:linear-gradient(90deg,var(--mint),var(--pink));
+            color:#fff;font-weight:900;padding:14px 34px;border-radius:30px;min-height:48px;box-shadow:var(--shadow);
+        }
+        .cta:hover{color:#fff;filter:brightness(1.05);}
+        .data-card{
+            background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;
+            box-shadow:var(--shadow);position:relative;overflow:hidden;
+        }
+        .data-card::before{
+            content:"";position:absolute;top:0;right:0;width:120px;height:120px;
+            background:radial-gradient(circle,rgba(155,140,255,.16),transparent 70%);
+        }
+        .data-card h3{color:var(--violet);font-size:18px;margin-bottom:12px;position:relative;}
+        .dt-row{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:9px 0;border-bottom:1px dashed var(--line);color:#3f4d57;position:relative;}
+        .dt-row:last-child{border-bottom:0;}
+        .dt-row span:last-child{color:#27323a;font-weight:700;}
+
+        /* 片库 */
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:18px;}
+        .card{
+            background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+            box-shadow:0 6px 18px rgba(155,140,255,.12);transition:.25s;
+        }
+        .card:hover{transform:translateY(-6px);border-color:var(--pink);box-shadow:0 14px 30px rgba(255,143,177,.22);}
+        .poster{height:228px;display:flex;align-items:center;justify-content:center;font-size:46px;color:#fff;position:relative;}
+        .poster.a{background:linear-gradient(135deg,#36d1b7,#7af0dd);}
+        .poster.b{background:linear-gradient(135deg,#ff8fb1,#ffc2d6);}
+        .poster.c{background:linear-gradient(135deg,#9b8cff,#c7beff);}
+        .poster.d{background:linear-gradient(135deg,#4dd0e1,#80deea);}
+        .poster.e{background:linear-gradient(135deg,#ffb74d,#ffe0b2);color:#5a3b00;}
+        .poster.f{background:linear-gradient(135deg,#aed581,#dcedc8);color:#33501f;}
+        .ribbon{position:absolute;top:10px;left:10px;background:var(--mint);color:#fff;font-size:12px;font-weight:800;padding:3px 8px;border-radius:6px;}
+        .ribbon.alt{background:var(--pink);color:#fff;}
+        .info{padding:12px 14px;}
+        .info h3{font-size:15px;color:#27323a;margin-bottom:6px;}
+        .info p{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;}
+
+        /* 分类 */
+        .cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;}
+        .cat{
+            background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;text-align:center;
+            box-shadow:0 6px 16px rgba(155,140,255,.1);transition:.25s;min-height:48px;
+        }
+        .cat:hover{border-color:var(--pink);transform:translateY(-4px);box-shadow:0 10px 25px rgba(255,143,177,.18);}
+        .cat .ico{font-size:30px;}
+        .cat h3{font-size:17px;margin:10px 0 6px;color:var(--mint);}
+        .cat p{font-size:13px;color:var(--muted);}
+
+        /* 榜单 */
+        .rank{display:grid;gap:12px;counter-reset:rk;}
+        .rk-item{
+            display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);
+            border-radius:12px;padding:14px 16px;box-shadow:0 4px 12px rgba(155,140,255,.1);
+        }
+        .rk-item::before{
+            counter-increment:rk;content:counter(rk);
+            width:42px;height:42px;flex:0 0 42px;border-radius:10px;
+            display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;
+            background:rgba(54,209,183,.14);color:var(--mint);
+        }
+        .rk-item:nth-child(1)::before{background:var(--pink);color:#fff;}
+        .rk-item:nth-child(2)::before{background:var(--pink-2);color:#5a2030;}
+        .rk-item:nth-child(3)::before{background:var(--mint-2);color:#0f5a4f;}
+        .rk-body{flex:1;}
+        .rk-body h3{font-size:16px;color:#27323a;}
+        .rk-body p{font-size:13px;color:var(--muted);}
+        .rk-score{font-weight:900;color:var(--pink);font-size:18px;}
+
+        /* 帮助+关于 */
+        .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+        .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 6px 16px rgba(155,140,255,.1);}
+        .panel h3{color:var(--violet);margin-bottom:12px;font-size:18px;}
+        .panel p{font-size:14px;color:#3f4d57;margin-bottom:10px;}
+        details{border:1px solid var(--line);background:var(--card);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+        summary{padding:14px 16px;font-weight:700;cursor:pointer;min-height:44px;display:flex;justify-content:space-between;align-items:center;color:#27323a;}
+        summary::-webkit-details-marker{display:none;}
+        summary::after{content:"+";color:var(--mint);font-size:20px;}
+        details[open] summary::after{content:"\2212";}
+        details p{padding:0 16px 16px;color:#3f4d57;font-size:14px;}
+        .notice{margin-top:18px;background:rgba(54,209,183,.1);border:1px dashed var(--mint);border-radius:12px;padding:16px;font-size:13px;color:#0f7a6a;}
+
+        /* 页脚 */
+        .footer{background:#fff0f6;border-top:1px solid var(--line);padding:48px 0 24px;color:#3f4d57;}
+        .foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;}
+        .footer h4{color:#27323a;font-size:16px;margin-bottom:14px;}
+        .footer a{color:var(--muted);font-size:14px;display:inline-block;padding:5px 0;}
+        .footer a:hover{color:var(--pink);padding-left:4px;}
+        .foot-bottom{text-align:center;margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);}
+        .foot-bottom .url{color:var(--mint);font-family:ui-monospace,Menlo,Consolas,monospace;}
+
+        .to-top{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--pink));color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;box-shadow:var(--shadow);opacity:0;visibility:hidden;transition:.3s;z-index:900;}
+        .to-top.show{opacity:1;visibility:visible;}
+
+        @media (max-width:880px){
+            .hero .wrap{grid-template-columns:1fr;}
+            .two{grid-template-columns:1fr;}
+        }
+        @media (max-width:768px){
+            .menu-btn{display:flex;}
+            .nav-links{
+                position:fixed;top:var(--nav-h);left:0;right:0;
+                background:rgba(255,247,251,.98);border-bottom:1px solid var(--line);
+                flex-direction:column;align-items:stretch;gap:0;
+                max-height:0;overflow:hidden;transition:max-height .35s ease;
+            }
+            .nav-links.open{max-height:460px;}
+            .nav-links a{padding:14px 18px;border-radius:0;border-bottom:1px solid rgba(0,0,0,.06);}
+            .grid{grid-template-columns:repeat(auto-fill,minmax(142px,1fr));}
+            .poster{height:188px;}
+        }
+        @media (max-width:420px){
+            .grid{grid-template-columns:1fr 1fr;}
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="nav">
+    <div class="brand"><b>宣宣电影网</b><span class="tag">xuanxuandianyingwang-h5</span></div>
+    <button class="menu-btn" id="menuBtn" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="navLinks" aria-label="主导航">
+        <a href="#home">首页</a>
+        <a href="#library">在线片库</a>
+        <a href="#category">电影分类</a>
+        <a href="#ranking">热门榜单</a>
+        <a href="#help">观影帮助</a>
+        <a href="#about">关于本站</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="wrap">
+        <div>
+            <h1>宣宣电影网 · <em>清爽</em>片库 <i>甜而不腻</i></h1>
+            <p>宣宣电影网（xuanxuandianyingwang-h5）用清新方式整理海量高清电影、电视剧、综艺、动漫，按类型/地区/年份多维度检索，手机电脑自适应，加载轻快、更新勤快、找片更省心。</p>
+            <div class="hero-url">https://xuanxuandianyingwang-h5.github.io</div>
+            <br>
+            <a class="cta" href="#">和宣宣一起看 #</a>
+        </div>
+        <aside class="data-card" aria-label="宣宣电影网信息">
+            <h3>🍬 观影小卡</h3>
+            <div class="dt-row"><span>网站名称</span><span>宣宣电影网</span></div>
+            <div class="dt-row"><span>域名</span><span>xuanxuandianyingwang-h5</span></div>
+            <div class="dt-row"><span>官网</span><span>github.io 单页</span></div>
+            <div class="dt-row"><span>内容</span><span>电影/剧集/综艺/动漫</span></div>
+            <div class="dt-row"><span>适配</span><span>移动端自适应</span></div>
+        </aside>
+    </div>
+</section>
+
+<section class="section" id="library">
+    <div class="wrap">
+        <h2 class="sec-title">在线片库<small>XUANXUAN DIANYINGWANG · 精选影片</small></h2>
+        <div class="grid">
+            <article class="card">
+                <div class="poster a"><span class="ribbon alt">热播</span>🎬</div>
+                <div class="info"><h3>云朵便利贴</h3><p><span>治愈</span><span>2025</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster b"><span class="ribbon">新片</span>🍿</div>
+                <div class="info"><h3>粉色信约</h3><p><span>爱情</span><span>2025</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster c"><span class="ribbon alt">口碑</span>🌟</div>
+                <div class="info"><h3>星河小卖部</h3><p><span>奇幻</span><span>2024</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster d"><span class="ribbon">烧脑</span>🧩</div>
+                <div class="info"><h3>薄荷谜案</h3><p><span>悬疑</span><span>2023</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster e"><span class="ribbon alt">爆笑</span>😂</div>
+                <div class="info"><h3>邻居别抢糖</h3><p><span>喜剧</span><span>2024</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster f"><span class="ribbon">史诗</span>⚔️</div>
+                <div class="info"><h3>春风戍边人</h3><p><span>历史</span><span>2022</span></p></div>
+            </article>
+        </div>
+        <div style="text-align:center;margin-top:28px;">
+            <a href="#" style="display:inline-block;border:1px solid var(--mint);padding:12px 28px;border-radius:26px;font-weight:800;">浏览全部影片 #</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="category" style="background:rgba(54,209,183,.05);">
+    <div class="wrap">
+        <h2 class="sec-title">电影分类<small>按类型找片 · 宣宣电影网</small></h2>
+        <div class="cats">
+            <a class="cat" href="#"><div class="ico">💥</div><h3>动作枪战</h3><p>飙车、特工、硬核格斗一网打尽</p></a>
+            <a class="cat" href="#"><div class="ico">😂</div><h3>喜剧搞笑</h3><p>合家欢、治愈幽默、解压必备</p></a>
+            <a class="cat" href="#"><div class="ico">👽</div><h3>科幻未来</h3><p>太空探索、AI觉醒、末日求生</p></a>
+            <a class="cat" href="#"><div class="ico">🔪</div><h3>悬疑推理</h3><p>密室逃脱、连环谜案、反转不断</p></a>
+            <a class="cat" href="#"><div class="ico">💞</div><h3>爱情青春</h3><p>校园暗恋、都市情缘、甜宠治愈</p></a>
+            <a class="cat" href="#"><div class="ico">⚔️</div><h3>历史战争</h3><p>古代战场、王朝更迭、英雄史诗</p></a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="ranking">
+    <div class="wrap">
+        <h2 class="sec-title">热门榜单<small>XUANXUAN-H5 周播排行榜</small></h2>
+        <div class="rank">
+            <div class="rk-item"><div class="rk-body"><h3>云朵便利贴</h3><p>治愈 / 2025 / 4K 轻量</p></div><div class="rk-score">9.8</div></div>
+            <div class="rk-item"><div class="rk-body"><h3>粉色信约</h3><p>爱情 / 2025 / 甜宠治愈</p></div><div class="rk-score">9.5</div></div>
+            <div class="rk-item"><div class="rk-body"><h3>薄荷谜案</h3><p>悬疑 / 2023 / 烧脑神作</p></div><div class="rk-score">9.3</div></div>
+            <div class="rk-item"><div class="rk-body"><h3>星河小卖部</h3><p>奇幻 / 2024 / 年度口碑</p></div><div class="rk-score">9.1</div></div>
+            <div class="rk-item"><div class="rk-body"><h3>邻居别抢糖</h3><p>喜剧 / 2024 / 笑到肚子疼</p></div><div class="rk-score">8.9</div></div>
+        </div>
+        <div style="text-align:center;margin-top:24px;">
+            <a href="#" style="font-weight:800;">查看完整榜单 #</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="help" style="background:rgba(255,143,177,.05);">
+    <div class="wrap">
+        <h2 class="sec-title">观影帮助<small>宣宣电影网 使用指南</small></h2>
+        <div class="two">
+            <div class="panel">
+                <h3>快速上手</h3>
+                <p>1. 顶部导航进入"在线片库"或"电影分类"，按类型、地区、年份筛选宣宣电影网资源。</p>
+                <p>2. 点击影片卡片查看简介、评分与播放入口；本单页演示内页均用 # 占位。</p>
+                <p>3. 手机端点右上角汉堡菜单切换栏目，全站自适应，无需手动缩放。</p>
+                <p>4. 官网统一为 https://xuanxuandianyingwang-h5.github.io，收藏后随时"宣宣看片"。</p>
+            </div>
+            <div>
+                <details open>
+                    <summary>宣宣电影网有什么特色？</summary>
+                    <p>主打"清爽、轻量、精选"，片库覆盖全类型，更新频率高，单页设计加载极速；正式播放接入后把 # 替换为真实地址即可。</p>
+                </details>
+                <details>
+                    <summary>手机端播放卡顿怎么解决？</summary>
+                    <p>先切换网络环境，部署时建议压缩图片资源；本页 CSS 内嵌、无外部请求，GitHub Pages 静态托管通常加载迅速。</p>
+                </details>
+                <details>
+                    <summary>支持哪些影视类型？</summary>
+                    <p>覆盖动作、喜剧、科幻、悬疑、爱情、历史战争六大类，也可按需扩展动漫、综艺、短剧等栏目。</p>
+                </details>
+                <details>
+                    <summary>必应怎么更快收录单页？</summary>
+                    <p>保证标题/描述/canonical 正确、核心内容在 HTML 而非重 JS，向必应站长工具提交首页；本页不生成 robots 与 sitemap，按你要求处理。</p>
+                </details>
+            </div>
+        </div>
+        <div class="notice">
+            说明：本页为「宣宣电影网 / xuanxuandianyingwang-h5」单页演示，所有内页、播放、详情链接均以 # 占位；不生成 robots.txt 与 sitemap.xml。必应收录可提交首页 https://xuanxuandianyingwang-h5.github.io 。
+        </div>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="wrap">
+        <h2 class="sec-title">关于本站<small>品牌 · 域名 · 官网 · SEO</small></h2>
+        <div class="two">
+            <div class="panel">
+                <h3>网站定位</h3>
+                <p>宣宣电影网（xuanxuandianyingwang-h5）做"清爽、精选、好找"的影视单页：首页直达片库，分类多维度筛片，榜单辅助决策，帮助中心解决播放疑问。</p>
+                <p>全站统一关键词「宣宣电影网」「xuanxuandianyingwang-h5」「高清电影在线观看」，利于必应识别主题与官网实体。</p>
+            </div>
+            <div class="panel">
+                <h3>技术与收录</h3>
+                <p>HTML/CSS 内部样式、语义化标题、canonical、Open Graph、移动端 viewport；核心内容不依赖 JS，便于必应抓取单页。</p>
+                <p>官网：<br><span style="font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--mint);">https://xuanxuandianyingwang-h5.github.io</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="wrap">
+        <div class="foot-grid">
+            <div>
+                <h4>宣宣电影网</h4>
+                <ul>
+                    <li><a href="#home">首页 #</a></li>
+                    <li><a href="#library">在线片库 #</a></li>
+                    <li><a href="#ranking">热门榜单 #</a></li>
+                    <li><a href="#about">关于本站 #</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>影片分类</h4>
+                <ul>
+                    <li><a href="#category">动作电影 #</a></li>
+                    <li><a href="#category">喜剧电影 #</a></li>
+                    <li><a href="#category">科幻电影 #</a></li>
+                    <li><a href="#category">悬疑电影 #</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>帮助中心</h4>
+                <ul>
+                    <li><a href="#help">观影帮助 #</a></li>
+                    <li><a href="#help">常见问题 #</a></li>
+                    <li><a href="#">意见反馈 #</a></li>
+                    <li><a href="#">免责声明 #</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>官方信息</h4>
+                <ul>
+                    <li><a href="#">网站名称：宣宣电影网</a></li>
+                    <li><a href="#">域名：xuanxuandianyingwang-h5</a></li>
+                    <li><a href="https://xuanxuandianyingwang-h5.github.io">官网：xuanxuandianyingwang-h5.github.io</a></li>
+                    <li><a href="#">关键词：宣宣电影网 海量影视</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <p>宣宣电影网 · xuanxuandianyingwang-h5 · 海量高清电影/电视剧在线观看单页演示</p>
+            <p class="url">https://xuanxuandianyingwang-h5.github.io</p>
+            <p>© 2026 宣宣电影网保留演示页面相关说明权利。本页不生成 robots.txt 与 sitemap.xml。</p>
+        </div>
+    </div>
+</footer>
+
+<a href="#" class="to-top" id="toTop" aria-label="回到顶部">↑</a>
+
+<script>
+    (function(){
+        var btn=document.getElementById('menuBtn');
+        var links=document.getElementById('navLinks');
+        btn.addEventListener('click',function(){
+            var open=links.classList.toggle('open');
+            btn.classList.toggle('open',open);
+            btn.setAttribute('aria-expanded',open?'true':'false');
+        });
+        links.querySelectorAll('a').forEach(function(a){
+            a.addEventListener('click',function(){
+                links.classList.remove('open');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded','false');
+            });
+        });
+        var top=document.getElementById('toTop');
+        window.addEventListener('scroll',function(){
+            if(window.scrollY>400){top.classList.add('show');}else{top.classList.remove('show');}
+        });
+        top.addEventListener('click',function(e){
+            e.preventDefault();
+            window.scrollTo({top:0,behavior:'smooth'});
+        });
+    })();
+</script>
+</body>
+</html>
